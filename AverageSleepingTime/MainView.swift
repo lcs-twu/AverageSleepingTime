@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    let weekdays = Calendar.current.shortWeekdaySymbols
+    let steps = [7,7.6,8.1,6.5,6.8,6.9,7]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            Chart {
+                ForEach(weekdays.indices, id: \.self) { index in
+                    BarMark(x: .value("Day", weekdays[index]), y: .value("Steps", steps[index]))
+                        .foregroundStyle(by: .value("Day", weekdays[index]))
+                        .annotation {
+                            Text("\(steps[index])")
+                        }
+                }
+            }
     }
 }
 
